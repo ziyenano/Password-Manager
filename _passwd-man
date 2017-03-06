@@ -1,0 +1,13 @@
+#compdef passwd-man
+_passwd-man() {
+    _alternative \
+        'writer:writer options:((  
+                       insert\:"insert a new item"
+                       update\:"update some item'\''s password"
+                       del\:"delete an item"
+                       commit\:"submit the modifications"
+                       log\:"show all the commits"
+                       show\:"show all the passwords" ))'
+        }
+
+_passwd-man "$@"
