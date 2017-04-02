@@ -9,7 +9,7 @@ cp $CONFIG_FILE $HOME/.$CONFIG_FILE
 mkdir -p $PASSWD_FOLDER 
 
 #zsh completion
-if [ $SHELL = "/bin/zsh" ]; then
+if [[ $SHELL =~ "zsh" ]]; then
     cp ./_passwd-man $PASSWD_FOLDER
     sudo rm -f /usr/local/share/zsh/site-functions/_passwd-man
     sudo ln -s $PASSWD_FOLDER/_passwd-man /usr/local/share/zsh/site-functions/_passwd-man
