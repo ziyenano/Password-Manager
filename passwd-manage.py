@@ -4,7 +4,7 @@ import os, string, sys, sqlite3
 def GenPassword(length = 8, chars = string.ascii_letters + string.digits + '-----'):
     return ''.join([choice(chars) for i in range(length)])
 
-envir = os.popen(". /Users/xiangcai/.passwd-manage.conf && echo $PASSWD_FOLDER && echo $PASSWD_FILE").read().split('\n') 
+envir = os.popen(". $HOME/.passwd-manage.conf && echo $PASSWD_FOLDER && echo $PASSWD_FILE").read().split('\n') 
 data_folder = envir[0] 
 data_file = envir[1]
 os.chdir(os.path.join(data_folder, data_file))
