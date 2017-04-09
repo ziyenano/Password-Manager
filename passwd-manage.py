@@ -14,73 +14,73 @@ class Passwd:
     def __init__(self, data_path):
         self.data_path = data_path
     def insert(self):
-	self.description = raw_input("describe the usage of password: ")
+	description = raw_input("describe the usage of password: ")
         print "\n"
-        self.style = raw_input("[1]. specify a password  [2]. randomly generate (type 1 or 2): ")
-        self.confirm = "no"
-        if self.style == "1":
-            while self.confirm != "yes":
+        style = raw_input("[1]. specify a password  [2]. randomly generate (type 1 or 2): ")
+        confirm = "no"
+        if style == "1":
+            while confirm != "yes":
                 print "\n"
-                self.passwd = raw_input("insert the corresponding password: ")
-                print "\n" + self.passwd + "\n"
-                self.confirm = raw_input("Accept this password? yes/no: ")
-        elif self.style == "2":
+                passwd = raw_input("insert the corresponding password: ")
+                print "\n" + passwd + "\n"
+                confirm = raw_input("Accept this password? yes/no: ")
+        elif style == "2":
             print "\n"
-            self.length = raw_input("set the length of the new password, no more than 20: ")
-            while self.confirm != "yes":
-                self.passwd = GenPassword(int(self.length))
-                print "\n" + self.passwd + "\n"
-                self.confirm = raw_input("Accept this password? yes/no: ")
+            length = raw_input("set the length of the new password, no more than 20: ")
+            while confirm != "yes":
+                passwd = GenPassword(int(length))
+                print "\n" + passwd + "\n"
+                confirm = raw_input("Accept this password? yes/no: ")
         else:
             sys.exit()
-        if self.confirm == "yes":
-            self.con = sqlite3.connect(self.data_path)
-            self.con.execute("insert into passwd_py(description, passwd) values('%s', '%s')" %(self.description, self.passwd))
-	    self.con.commit()
-	    self.con.close()
-            os.system("echo %s >> ./.passwd-history/record" %("insert: " + self.description))
+        if confirm == "yes":
+            con = sqlite3.connect(self.data_path)
+            con.execute("insert into passwd_py(description, passwd) values('%s', '%s')" %(description, passwd))
+	    con.commit()
+	    con.close()
+            os.system("echo %s >> ./.passwd-history/record" %("insert: " + description))
 	    print "\n" + "Done!"
     def update(self):
-        self.item_id = int(raw_input("type the item id you want to update: "))
-        self.con = sqlite3.connect(data_path)
-        self.update_item = self.con.execute("select * from  passwd_py where id = %d" %self.item_id).fetchone()
-        print "\n" + str(self.update_item[0]) + " | " + self.update_item[1] + " | " + self.update_item[2] + "\n"
-        self.style = raw_input("[1]. specify a password  [2]. randomly generate (type 1 or 2): ")
-        self.confirm = "no"
-        if self.style == "1":
-            while self.confirm != "yes":
+        item_id = int(raw_input("type the item id you want to update: "))
+        con = sqlite3.connect(self.data_path)
+        update_item = con.execute("select * from  passwd_py where id = %d" %item_id).fetchone()
+        print "\n" + str(update_item[0]) + " | " + update_item[1] + " | " + update_item[2] + "\n"
+        style = raw_input("[1]. specify a password  [2]. randomly generate (type 1 or 2): ")
+        confirm = "no"
+        if style == "1":
+            while confirm != "yes":
                 print "\n"
-                self.passwd = raw_input("insert the corresponding password: ")
-                print "\n" + self.passwd + "\n"
-                self.confirm = raw_input("Accept this password? yes/no: ")
-        elif self.style == "2":
+                passwd = raw_input("insert the corresponding password: ")
+                print "\n" + passwd + "\n"
+                confirm = raw_input("Accept this password? yes/no: ")
+        elif style == "2":
             print "\n"
-            self.length = raw_input("set the length of the new password, no more than 20: ")
-            while self.confirm != "yes":
-                self.passwd = GenPassword(int(self.length))
-                print "\n" + self.passwd + "\n"
-                self.confirm = raw_input("Accept this password? yes/no: ")
+            length = raw_input("set the length of the new password, no more than 20: ")
+            while confirm != "yes":
+                passwd = GenPassword(int(length))
+                print "\n" + passwd + "\n"
+                confirm = raw_input("Accept this password? yes/no: ")
         else:
             sys.exit()
-        if self.confirm == "yes":
-            self.con.execute("update passwd_py set passwd = '%s' where id = %d" %(self.passwd, self.item_id))
-            self.con.commit()
-            print "\n" + self.update_item[2] + " ==> " +  self.passwd
+        if confirm == "yes":
+            con.execute("update passwd_py set passwd = '%s' where id = %d" %(passwd, item_id))
+            con.commit()
+            print "\n" + update_item[2] + " ==> " +  passwd
             print "\n" + "Done!"
-            os.system("echo %s >> ./.passwd-history/record" %("update: " + self.update_item[1]))
-        self.con.close()
+            os.system("echo %s >> ./.passwd-history/record" %("update: " + update_item[1]))
+        con.close()
     def delete(self):
-        self.item_id = int(raw_input("type the item id you want to delete: "))
-        self.con = sqlite3.connect(self.data_path)
-        self.del_item = self.con.execute("select * from  passwd_py where id = %d" %self.item_id).fetchone()
-        print "\n" + str(self.del_item[0]) + " | " + self.del_item[1] + " | " + self.del_item[2] + '\n'
-        self.confirm = raw_input("delete this password? yes/no: ")
-        if self.confirm == "yes":
-            self.con.execute("delete from passwd_py  where id = %d" %self.item_id)
-            self.con.commit()
-            os.system("echo %s >> ./.passwd-history/record" %("delete: " + self.del_item[1]))
+        item_id = int(raw_input("type the item id you want to delete: "))
+        con = sqlite3.connect(self.data_path)
+        del_item = con.execute("select * from  passwd_py where id = %d" %item_id).fetchone()
+        print "\n" + str(del_item[0]) + " | " + del_item[1] + " | " + del_item[2] + '\n'
+        confirm = raw_input("delete this password? yes/no: ")
+        if confirm == "yes":
+            con.execute("delete from passwd_py  where id = %d" %item_id)
+            con.commit()
+            os.system("echo %s >> ./.passwd-history/record" %("delete: " + del_item[1]))
             print "\n" + "Done!"
-        self.con.close()
+        con.close()
     def commit(self):
         os.system("sqlite3 -header %s 'select * from passwd_py' > ./.passwd-history/passwd" %self.data_path)
         os.system("cd ./.passwd-history/ && git commit -a -F record" )
