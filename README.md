@@ -37,9 +37,3 @@ passwd-man
 
 * You'd better run **passwd-man commit** to submit the current version before you take update or delete operation. 
 * Run **passwd-man log** to list all the commit-id, and view the corresponding historical modifications by the command **passwd-man show commit-id**. It may be very useful when you want to find the passwords that were deleted or updated. 
-
-### Manage Multiple Files
-* If you want to add a new password file, as mentioned above, modify the environment variables in **passwd-manage.conf**, and run the **./initialize.sh** script again.
-* If more than one password files were created, manage different password file by modifying **\$HOME/.passwd-manage.conf**, and in this case, **do not** run the **./initialize.sh** script.
-
-
